@@ -22,7 +22,7 @@ import java.util.stream.IntStream;
 public class MarcaControllerIJGZ {
     @Autowired
     private IMarcaServiceIJGZ marcaServiceIJGZ;
-
+  
     @GetMapping
     public String index(Model model, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size){
         int currentPage = page.orElse(1) - 1; // si no está seteado se asigna 0
@@ -49,7 +49,7 @@ public class MarcaControllerIJGZ {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute("marca") MarcaIJGZ marca, BindingResult result, Model model, RedirectAttributes attributes){
+    public String save(MarcaIJGZ marca, BindingResult result, Model model, RedirectAttributes attributes){
         if(result.hasErrors()){
             model.addAttribute(marca);
             attributes.addFlashAttribute("error", "No se pudo guardar debido a un error.");
@@ -57,47 +57,35 @@ public class MarcaControllerIJGZ {
         }
 
         marcaServiceIJGZ.crearOEditar(marca);
-        attributes.addFlashAttribute("msg", "Marca creada correctamente");
+        attributes.addFlashAttribute("msg", "marca creada correctamente");
         return "redirect:/marcas";
     }
 
     @GetMapping("/details/{id}")
     public String details(@PathVariable("id") Integer id, Model model){
-        Optional<MarcaIJGZ> marcaOpt = marcaServiceIJGZ.buscarPorId(id);
-        if (marcaOpt.isPresent()) {
-            model.addAttribute("marca", marcaOpt.get());
-            return "marca/details";
-        } else {
-            return "redirect:/marcas";
-        }
+        MarcaIJGZ marca = marcaServiceIJGZ.buscarPorId(id).get();
+        model.addAttribute("grupo", marca);
+        return "marca/details";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model){
-        Optional<MarcaIJGZ> marcaOpt = marcaServiceIJGZ.buscarPorId(id);
-        if (marcaOpt.isPresent()) {
-            model.addAttribute("marca", marcaOpt.get());
-            return "marca/edit";
-        } else {
-            return "redirect:/marcas";
-        }
+        MarcaIJGZ marca = marcaServiceIJGZ.buscarPorId(id).get();
+        model.addAttribute("marca", marca);
+        return "marca/edit";
     }
 
     @GetMapping("/remove/{id}")
     public String remove(@PathVariable("id") Integer id, Model model){
-        Optional<MarcaIJGZ> marcaOpt = marcaServiceIJGZ.buscarPorId(id);
-        if (marcaOpt.isPresent()) {
-            model.addAttribute("marca", marcaOpt.get());
-            return "marca/delete";
-        } else {
-            return "redirect:/marcas";
-        }
+        MarcaIJGZ marca = marcaServiceIJGZ.buscarPorId(id).get();
+        model.addAttribute("marca", marca);
+        return "marca/delete";
     }
 
     @PostMapping("/delete")
-    public String delete(@ModelAttribute("marca") MarcaIJGZ marca, RedirectAttributes attributes){
+    public String delete(MarcaIJGZ marca, RedirectAttributes attributes){
         marcaServiceIJGZ.eliminarPorId(marca.getId());
-        attributes.addFlashAttribute("msg", "Marca eliminada correctamente");
+        attributes.addFlashAttribute("msg", "marca eliminada correctamente");
         return "redirect:/marcas";
     }
 }
