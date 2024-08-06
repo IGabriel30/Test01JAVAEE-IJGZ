@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 @Controller
-@RequestMapping("/marcas")
+@RequestMapping("marcas")
 public class MarcaControllerIJGZ {
     @Autowired
     private IMarcaServiceIJGZ marcaServiceIJGZ;
@@ -44,35 +44,50 @@ public class MarcaControllerIJGZ {
     }
 
     @GetMapping("/create")
-    public String create(MarcaIJGZ marca){
+    public String create(Model model){
+        model.addAttribute("marca", new MarcaIJGZ());
         return "marca/create";
     }
 
     @PostMapping("/save")
-    public String save(MarcaIJGZ marca, BindingResult result, Model model, RedirectAttributes attributes){
-        if(result.hasErrors()){
-            model.addAttribute(marca);
+    public String save(@ModelAttribute("marca") MarcaIJGZ marca, BindingResult result, Model model, RedirectAttributes attributes) {
+        if (result.hasErrors()) {
+            model.addAttribute("marca", marca);
             attributes.addFlashAttribute("error", "No se pudo guardar debido a un error.");
             return "marca/create";
         }
 
         marcaServiceIJGZ.crearOEditar(marca);
-        attributes.addFlashAttribute("msg", "marca creada correctamente");
+        attributes.addFlashAttribute("msg", "Marca creada correctamente");
         return "redirect:/marcas";
     }
 
     @GetMapping("/details/{id}")
-    public String details(@PathVariable("id") Integer id, Model model){
-        MarcaIJGZ marca = marcaServiceIJGZ.buscarPorId(id).get();
-        model.addAttribute("grupo", marca);
-        return "marca/details";
-    }
+public String details(@PathVariable("id") Integer id, Model model) {
+    MarcaIJGZ marca = marcaServiceIJGZ.buscarPorId(id).get();
+    model.addAttribute("marca", marca);
+    return "marca/details";
+}
 
+
+  
     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Integer id, Model model){
+    public String edit(@PathVariable("id") Integer id, Model model) {
         MarcaIJGZ marca = marcaServiceIJGZ.buscarPorId(id).get();
         model.addAttribute("marca", marca);
         return "marca/edit";
+    }
+    @PostMapping("/edit")
+    public String update(@ModelAttribute("marca") MarcaIJGZ marca, BindingResult result, Model model, RedirectAttributes attributes) {
+        if (result.hasErrors()) {
+            model.addAttribute("marca", marca);
+            attributes.addFlashAttribute("error", "No se pudo modificar debido a un error.");
+            return "marca/edit";
+        }
+
+        marcaServiceIJGZ.crearOEditar(marca);
+        attributes.addFlashAttribute("msg", "Marca modificada correctamente");
+        return "redirect:/marcas";
     }
 
     @GetMapping("/remove/{id}")
