@@ -1,0 +1,38 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout">
+
+<div layout:fragment="content">
+    <h1>Editar departamento trabajo</h1>
+    <form th:action="@{/departamentosTrabajo/save}" th:object="${departamentoTrabajo}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="nombreIJGZ">Nombre</label>
+                    <input type="text" class="form-control" th:field="*{nombreIJGZ}" id="nombreIJGZ" placeholder="Escriba el nombre del departamento trabajo" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="telefonoIJGZ">Teléfono</label>
+                    <input type="text" class="form-control" th:field="*{telefonoIJGZ}" id="telefonoIJGZ" placeholder="Escriba el número de teléfono" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="jefeIJGZ">Jefe</label>
+                    <input type="text" class="form-control" th:field="*{jefeIJGZ}" id="jefeIJGZ" placeholder="Escriba el nombre del jefe" required>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button> |
+        <a th:href="@{/departamentosTrabajo}">Regresar</a>
+    </form>
+</div>

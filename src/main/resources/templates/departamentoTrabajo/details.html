@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layouts/_mainLayout">
+
+<div layout:fragment="content">
+    <h1>Detalles del departamento trabajo</h1>
+    
+    <!-- Mensajes de error y éxito -->
+    <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
+    <div th:if="${msg}" class="alert alert-success" role="alert" th:text="${msg}"></div>
+
+    <!-- Información de la marca -->
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class = "col-sm-2" >ID</dt>
+            <dd class = "col-sm-10" th:text="${departamentoTrabajo.id}"></dd>
+
+            <dt class = "col-sm-2">Nombre</dt>
+            <dd class = "col-sm-10" th:text="${departamentoTrabajo.nombreIJGZ}"></dd>
+
+            <dt class = "col-sm-2">Teléfono</dt>
+            <dd class = "col-sm-10" th:text="${departamentoTrabajo.telefonoIJGZ}"></dd>
+
+            <dt class = "col-sm-2">Jefe</dt>
+            <dd class = "col-sm-10" th:text="${departamentoTrabajo.jefeIJGZ}"></dd>
+        </dl>
+
+        <!-- Botones de acción -->
+        <a th:href="@{/departamentosTrabajo/edit/{id}(id=${departamentoTrabajo.id})}" class="btn btn-outline-info">Editar</a> |
+        <a th:href="@{/departamentosTrabajo}" class="btn btn-secondary">Regresar</a>
+    </div>
+</div>
+</html>
