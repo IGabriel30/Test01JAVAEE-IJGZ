@@ -31,7 +31,7 @@
             <dd class = "col-sm-10" th:text="${cliente.sueldoIJGZ}"></dd>
 
             <dt class = "col-sm-2">Estatus</dt>
-            <dd class = "col-sm-10" th:text="${cliente.estatusIJGZ}"></dd>
+            <dd class = "col-sm-10" th:text="${cliente.estatusIJGZ == 0 ? 'Inactivo' : 'Activo'}"></dd>
         </dl>
 
         <!-- Botones de acción -->

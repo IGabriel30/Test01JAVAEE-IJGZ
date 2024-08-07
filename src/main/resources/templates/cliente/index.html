@@ -49,7 +49,7 @@
             <td th:text="${item.direccionIJGZ}"></td>
             <td th:text="${item.fechaNacimientoIJGZ}"></td>
             <td th:text="${item.sueldoIJGZ}"></td>
-            <td th:text="${item.estatusIJGZ  == 0 ? 'Inactivo' : 'Activo'}"></td>
+            <td th:text="${item.estatusIJGZ == 0 ? 'Inactivo' : 'Activo'}"></td>
             <td>
                 <a th:href="@{/clientes/details/{id} (id = ${item.id})}" class="btn btn-outline-secondary">Detalles</a> |
                 <a th:href="@{/clientes/edit/{id} (id = ${item.id})}" class="btn btn-outline-info">Editar</a> |
