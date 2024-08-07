@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/_mainLayout">
+
+<div layout:fragment="content">
+    <h1>Editar cliente</h1>
+    <form th:action="@{/clientes/edit}" th:object="${cliente}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="nombreIJGZ">Nombre</label>
+                    <input type="text" class="form-control" th:field="*{nombreIJGZ}" id="nombreIJGZ" placeholder="Escriba el nombre del cliente" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="direccionIJGZ">Dirección</label>
+                    <input type="text" class="form-control" th:field="*{direccionIJGZ}" id="direccionIJGZ" placeholder="Escriba la dirección" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="fechaNacimientoIJGZ">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control" th:field="*{fechaNacimientoIJGZ}" id="fechaNacimientoIJGZ" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="sueldoIJGZ">Sueldo</label>
+                    <input type="number" step="0.01" class="form-control" th:field="*{sueldoIJGZ}" id="sueldoIJGZ" placeholder="Escriba el sueldo" required>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="estatusIJGZ">Estatus</label>
+                    <select class="form-control" th:field="*{estatusIJGZ}" id="estatusIJGZ" required>
+                        <option value="" disabled>Seleccione el estatus</option>
+                        <option th:value="0" th:text="'Inactivo'"></option>
+                        <option th:value="1" th:text="'Activo'"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button> |
+        <a th:href="@{/clientes}">Regresar</a>
+    </form>
+</div>
+</html>
