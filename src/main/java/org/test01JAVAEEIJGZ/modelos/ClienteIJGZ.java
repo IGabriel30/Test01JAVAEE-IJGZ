@@ -3,6 +3,8 @@ package org.test01JAVAEEIJGZ.modelos;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,6 +28,7 @@ public class ClienteIJGZ {
     private String direccionIJGZ;
 
     @NotNull(message = "La fecha de nacimiento es requerida")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimientoIJGZ;
 
     @NotNull(message = "El sueldo es requerido.")
